@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# A React application based in Axios API for obtainnig movies datas = API chaining.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
