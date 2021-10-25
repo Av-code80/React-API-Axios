@@ -19,7 +19,7 @@ const Movies = () => {
           });
 
           setMovies(response.data.docs);
-          console.log(response.data.docs);
+          //console.log(response.data.docs);
         } catch (error) {
           console.log("Error: " + error);
         }  
@@ -29,21 +29,23 @@ const Movies = () => {
 
 if (!movies) {
     return <div>Loading...</div>;
-}
+}       
     return (
-      <ul className={classes.olWrapper}>
-        {movies.map(({ _id, name, academyAwardWins }, index) => (
-
-          <li className={classes.liSort} key={_id}>
-            <Link to={`/details/${_id}`}>
-              <div>{index}</div>
-              <div>Name of the Movie : {name}</div>
-              <div>Academy Awards : {academyAwardWins}</div>
-            </Link>
-          </li>
-          
-        ))}
-      </ul>
+      <>
+  
+        <ul className={classes.olWrapper}>
+          <span>MOVIES :</span>
+          {movies.map(({ _id, name, academyAwardWins }, index) => (
+            <li className={classes.liSort} key={_id}> 
+              <Link className={classes.linkWrapper} to={`/details/${_id}`}>
+                <div>{index}</div>
+                <div>Name of the Movie : {name}</div>
+                <div>Academy Awards : {academyAwardWins}</div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </>
     );
 }
 

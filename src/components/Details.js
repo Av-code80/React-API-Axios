@@ -3,10 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 //import useLord from '../hooks/useLord';
 
+    
+
 
 const Details = (props) => {
+ 
   const [movie, setMovie] = useState("");
-  const [quote, setQuote] = useState("");
+  const [quote, setQuote] = useState({});
   const [characters, setCharacters] = useState("");
   
   const { id: movieId } = props.match.params;
@@ -25,7 +28,7 @@ const Details = (props) => {
           { headers: headers }
         );
         setMovie(response.data.docs[0]);
-        // console.log(response.data.docs[0].name);
+         //console.log(response.data);
       } catch (error) {
         console.log("Error quote: " + error);
       }
@@ -34,9 +37,8 @@ const Details = (props) => {
           `https://the-one-api.dev/v2/movie/${movieId}/quote`,
           { headers: headers }
         );
-        //console.log(response);
         setQuote(response.data.docs);
-        // console.log(response.data.docs);
+        //console.log(response.data.docs);
       } catch (error) {
         console.log("Error quote: " + error);
       }
@@ -46,7 +48,7 @@ const Details = (props) => {
           { headers: headers }
         );
         setCharacters(response.data.docs);
-        //console.log(response.data.docs);
+        console.log(response.data.docs);
       } catch (error) {
         console.log("Error character: " + error);
       }
@@ -56,14 +58,14 @@ const Details = (props) => {
   if (!quote || !characters) {
     return <div>Loading...</div>;
   }
-  
+
   return (
     <>
       <Link to="/">Home</Link>
 
-      <div>{movie.docs[0].name}</div>
+      <div>{movie.name}</div>
       <ul>
-        {quote.docs.map(({ dialog, _id }, index) => {
+        {quote.map(({ dialog, _id }, index) => {
           if (index > 10) return false;
           return <li key={_id}>{dialog}</li>;
         })}
@@ -81,9 +83,9 @@ const Details = (props) => {
 export default Details
 
     
- {/* <div>{JSON.stringify(movie.name)}</div> */}
-      {/* 
-      */}
+ /* <div>{JSON.stringify(movie.name)}</div> */
+      
+    
     
 
 //       import axios from 'axios'

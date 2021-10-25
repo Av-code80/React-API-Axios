@@ -1,0 +1,24 @@
+.headerButton {
+  background-color: rgba(150, 133, 4, 0.92);
+  color: #fff;
+  padding: 2em;
+}
+
+.headerColorChanged {
+  background-color: rgba(79, 125, 7, 0.982);
+  color: #fff;
+}
+
+.headerButton h1 {
+  text-transform: uppercase;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+
+.headerButton .faBars {
+  font-size: 2rem;
+  float: left;
+  transform: translateY(40%);
+}
