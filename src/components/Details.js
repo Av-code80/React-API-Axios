@@ -64,12 +64,12 @@ const Details = (props) => { // props for getting sparId
 
         try{ // get data step
             const response = await DB.get(`/movies/${movieId}`) 
-                    setRating(response.data.rate);
-        } catch(error) { // post data
+              setRating(response.data.rate);
+        } 
+        catch(error) { // post data
           if (error.response.status === 404 && movie._id) {
             console.log(movie._id);
-
-                await DB.post('/movies', {id:movie._id, rate:0})
+              await DB.post('/movies', {id:movie._id, rate:0})
           }
 
           // console.log(error.response.status) // 404
@@ -88,9 +88,8 @@ const Details = (props) => { // props for getting sparId
       <Link className={classes.movieDetails} to="/">
         Home
       </Link>
-
-      <Rating rate={rating} idMovieRating={movieId} />
       <div className={classes.liClass}>
+        <Rating rate={rating} idMovieRating={movieId} />
         <div>{movie.name}</div>
         <ul>
           {quote.map(({ dialog, _id }, index) => {
