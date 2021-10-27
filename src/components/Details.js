@@ -1,16 +1,18 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import DB from '../API/DB'
+import Rating from './Rating'
+import classes from './Details.module.css'
 //import useLord from '../hooks/useLord';
 
-    
-
-
-const Details = (props) => {
+  
+const Details = (props) => { // props for getting sparId
  
   const [movie, setMovie] = useState("");
   const [quote, setQuote] = useState({});
   const [characters, setCharacters] = useState("");
+  const [rating, setRating] = useState(0);
   
   const { id: movieId } = props.match.params;
 
@@ -22,6 +24,7 @@ const Details = (props) => {
     };
 
     (async function () {
+
       try {
         const response = await axios.get(
           `https://the-one-api.dev/v2/movie/${movieId}`,
@@ -55,27 +58,53 @@ const Details = (props) => {
     })();
   }, [movieId]);
 
+  useEffect(() => {
+
+    (async function() {
+
+        try{ // get data step
+            const response = await DB.get(`/movies/${movieId}`) 
+                    setRating(response.data.rate);
+        } catch(error) { // post data
+          if (error.response.status === 404 && movie._id) {
+            console.log(movie._id);
+
+                await DB.post('/movies', {id:movie._id, rate:0})
+          }
+
+          // console.log(error.response.status) // 404
+        }
+    }) ()
+  }, [movie])
+
+
   if (!quote || !characters) {
     return <div>Loading...</div>;
   }
 
   return (
+    // props : rate={rating}
     <>
-      <Link to="/">Home</Link>
+      <Link className={classes.movieDetails} to="/">
+        Home
+      </Link>
 
-      <div>{movie.name}</div>
-      <ul>
-        {quote.map(({ dialog, _id }, index) => {
-          if (index > 10) return false;
-          return <li key={_id}>{dialog}</li>;
-        })}
-      </ul>
-      <ul>
-        {characters.map(({ _id, name }, index) => {
-          if (index > 10) return false;
-          return <div key={_id}>{name}</div>;
-        })}
-      </ul>
+      <Rating rate={rating} idMovieRating={movieId} />
+      <div className={classes.liClass}>
+        <div>{movie.name}</div>
+        <ul>
+          {quote.map(({ dialog, _id }, index) => {
+            if (index > 10) return false;
+            return <li key={_id}>{dialog}</li>;
+          })}
+        </ul>
+        <ul>
+          {characters.map(({ _id, name }, index) => {
+            if (index > 10) return false;
+            return <div key={_id}>{name}</div>;
+          })}
+        </ul>
+      </div>
     </>
   );
       };

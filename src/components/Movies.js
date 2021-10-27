@@ -31,8 +31,7 @@ if (!movies) {
     return <div>Loading...</div>;
 }       
     return (
-      <>
-  
+      <>  
         <ul className={classes.olWrapper}>
           <span>MOVIES :</span>
           {movies.map(({ _id, name, academyAwardWins }, index) => (
