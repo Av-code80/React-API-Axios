@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { AiTwotoneStar, AiOutlineStar } from "react-icons/ai";
 import DB from '../API/DB';
+import classes from './Rating.module.css'
 
 
 
@@ -21,13 +22,19 @@ console.log(rate, idMovieRating);
 
 
     return (
-        <div>
+        <div className={classes.rating}>
 
             {[1, 2, 3].map((star, index) => {
 
                 if (ratingStar >= index + 1) {
                  
-                  return <AiTwotoneStar onClick={() => changeRate(star)} key={index} />
+                  return (
+                    <AiTwotoneStar
+                      className={classes.ratingColor}
+                      onClick={() => changeRate(star)}
+                      key={index}
+                    />
+                  );
                 }   
                 return <AiOutlineStar onClick={() => changeRate(star)} key={index} />
                            
