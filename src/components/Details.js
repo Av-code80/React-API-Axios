@@ -31,7 +31,7 @@ const Details = (props) => { // props for getting sparId
           { headers: headers }
         );
         setMovie(response.data.docs[0]);
-         //console.log(response.data);
+         console.log(response.data);
       } catch (error) {
         console.log("Error quote: " + error);
       }
