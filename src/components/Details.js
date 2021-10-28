@@ -1,22 +1,22 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import DB from '../API/DB'
-import Rating from './Rating'
-import classes from './Details.module.css'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import DB from "../API/DB";
+import Rating from "./Rating";
+import classes from "./Details.module.css";
 //import useLord from '../hooks/useLord';
 
-  
-const Details = (props) => { // props for getting sparId
- 
+const Details = (props) => {
+  // props for getting sparId
+
   const [movie, setMovie] = useState("");
   const [quote, setQuote] = useState({});
   const [characters, setCharacters] = useState("");
   const [rating, setRating] = useState(0);
-  
+
   const { id: movieId } = props.match.params;
 
-   //data source
+  //data source
   useEffect(() => {
     const headers = {
       Accept: "application/json",
@@ -24,14 +24,13 @@ const Details = (props) => { // props for getting sparId
     };
 
     (async function () {
-
       try {
         const response = await axios.get(
           `https://the-one-api.dev/v2/movie/${movieId}`,
           { headers: headers }
         );
         setMovie(response.data.docs[0]);
-         console.log(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.log("Error quote: " + error);
       }
@@ -59,24 +58,22 @@ const Details = (props) => { // props for getting sparId
   }, [movieId]);
 
   useEffect(() => {
-
-    (async function() {
-
-        try{ // get data step
-            const response = await DB.get(`/movies/${movieId}`) 
-              setRating(response.data.rate);
-        } 
-        catch(error) { // post data
-          if (error.response.status === 404 && movie._id) {
-            console.log(movie._id);
-              await DB.post('/movies', {id:movie._id, rate:0})
-          }
-
-          // console.log(error.response.status) // 404
+    (async function () {
+      try {
+        // get data step
+        const response = await DB.get(`/movies/${movieId}`);
+        setRating(response.data.rate);
+      } catch (error) {
+        // post data
+        if (error.response.status === 404 && movie._id) {
+          console.log(movie._id);
+          await DB.post("/movies", { id: movie._id, rate: 0 });
         }
-    }) ()
-  }, [movie])
 
+        // console.log(error.response.status) // 404
+      }
+    })();
+  }, [movie]);
 
   if (!quote || !characters) {
     return <div>Loading...</div>;
@@ -106,27 +103,22 @@ const Details = (props) => { // props for getting sparId
       </div>
     </>
   );
-      };
+};
 
-export default Details
+export default Details;
 
-    
- /* <div>{JSON.stringify(movie.name)}</div> */
-      
-    
-    
+/* <div>{JSON.stringify(movie.name)}</div> */
 
 //       import axios from 'axios'
 // import React, { useEffect, useState } from 'react'
 // import { Link } from 'react-router-dom'
 // //import useLord from '../hooks/useLord';
 
-
 // const Details = (props) => {
 //   const [movie, setMovie] = useState("");
 //   const [quote, setQuote] = useState("");
 //   const [characters, setCharacters] = useState("");
-  
+
 //   const { id: movieId } = props.match.params;
 
 //   const [ loadingMovie, resultMovie, errorMovie ] = useLord(`movie/${movieId}`);
@@ -181,7 +173,6 @@ export default Details
 //   //   return <div>Loading...</div>;
 //   // }
 
-
 // //   console.log(resultMovie, resultMovie.length);
 // // if (!loadingQuote || !loadingCharacter || !loadingMovie) {
 // //   return <div>Loading...</div>;
@@ -190,7 +181,7 @@ export default Details
 //   // if ((resultMovie.length == 1)) return "Loading";
 //   //console.log(resultMovie.length);
 //   console.log(resultQuote);
-//   if (!resultMovie.hasOwnProperty("docs") || !resultQuote.hasOwnProperty("docs") 
+//   if (!resultMovie.hasOwnProperty("docs") || !resultQuote.hasOwnProperty("docs")
 //   || !resultCharacter.hasOwnProperty("docs") ) {
 
 //    return <div>Loading...</div>
@@ -217,8 +208,6 @@ export default Details
 
 // export default Details
 
-    
 //  {/* <div>{JSON.stringify(movie.name)}</div> */}
-//       {/* 
+//       {/*
 //       */}
-    
