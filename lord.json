@@ -2,7 +2,11 @@
   "movies": [
     {
       "id": "5cd95395de30eff6ebccde56",
-      "rate": 4
+      "rate": 0
+    },
+    {
+      "id": "5cd95395de30eff6ebccde57",
+      "rate": 0
     }
   ]
 }

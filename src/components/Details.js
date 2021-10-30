@@ -6,8 +6,7 @@ import Rating from "./Rating";
 import classes from "./Details.module.css";
 //import useLord from '../hooks/useLord';
 
-const Details = (props) => {
-  // props for getting sparId
+const Details = (props) => {// props for getting sparId
 
   const [movie, setMovie] = useState("");
   const [quote, setQuote] = useState({});
@@ -67,13 +66,13 @@ const Details = (props) => {
         // post data
         if (error.response.status === 404 && movie._id) {
           console.log(movie._id);
-          await DB.post("/movies", { id: movie._id, rate: 0 });
+          await DB.post("/movies", { id: movie._id, rate: 0 }); // rating default
         }
 
         // console.log(error.response.status) // 404
       }
     })();
-  }, [movie]);
+  }, [movie, movieId]);
 
   if (!quote || !characters) {
     return <div>Loading...</div>;
