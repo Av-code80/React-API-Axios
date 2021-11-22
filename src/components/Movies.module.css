@@ -2,7 +2,7 @@
 list-style: none;
 background-image: url("image.jpeg");
 background-size: cover;
-transform: translateY( -15px);
+transform: translateY( -5px);
 height: 100vh;
 background-repeat:no-repeat;
 background-position:center;

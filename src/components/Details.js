@@ -64,12 +64,10 @@ const Details = (props) => {// props for getting sparId
         setRating(response.data.rate);
       } catch (error) {
         // post data
-        if (error.response.status === 404 && movie._id) {
+        if (error.response.status == 404 && movie._id) {
           console.log(movie._id);
           await DB.post("/movies", { id: movie._id, rate: 0 }); // rating default
         }
-
-        // console.log(error.response.status) // 404
       }
     })();
   }, [movie, movieId]);

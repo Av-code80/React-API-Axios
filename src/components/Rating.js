@@ -9,10 +9,7 @@ const Rating = ({ rate, idMovieRating }) => {
  //console.log(rate, idMovieRating);
 
    const changeRate = async (star) => {
-     // patch applique des modifications partielles à une ressource
-
      const response = await DB.get(`/movies/${idMovieRating}`);
-
      if (response.data.rate === star) {
        star = star - 1;
      }
